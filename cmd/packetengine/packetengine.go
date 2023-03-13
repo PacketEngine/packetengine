@@ -6,7 +6,7 @@ import (
 
     "github.com/fatih/color"
     "github.com/urfave/cli/v2"
-    "github.com/PacketEngine/packetengine-cli"
+    "github.com/PacketEngine/packetengine"
 )
 
 var colorError *color.Color
