@@ -1,4 +1,4 @@
-module github.com/PacketEngine/packetengine-cli
+module github.com/PacketEngine/packetengine
 
 go 1.19
 
