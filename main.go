@@ -3,8 +3,8 @@ package packetengine
 import (
 	"encoding/json"
 	"errors"
-	"os"
 	"github.com/go-resty/resty/v2"
+	"os"
 )
 
 type PacketEngineClient struct {
