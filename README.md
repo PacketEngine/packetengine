@@ -81,7 +81,9 @@ go install -v github.com/PacketEngine/packetengine/cmd/packetengine@latest
 
 Using Docker:
 
-TODO
+```
+docker pull packetengine/packetengine:latest
+```
 
 Using Snap:
 
