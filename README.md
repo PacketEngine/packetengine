@@ -116,7 +116,10 @@ TODO
 
 Using Brew:
 
-TODO
+```console
+brew tap PacketEngine/packetengine
+brew install packetengine
+```
 
 # License
 
