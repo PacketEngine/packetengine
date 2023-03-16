@@ -21,7 +21,7 @@ The CLI application doesn't perform any scanning itself -- it gives you instant 
 
 Standalone:
 
-```
+```console
 $ packetengine init your-api-key
 API key set!
 $ packetengine subdomains uberinternal.com
@@ -43,7 +43,7 @@ productops.uberinternal.com
 
 Docker:
 
-```
+```console
 $ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init your-api-key
 API key set!
 $ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine subdomains uberinternal.com
@@ -66,7 +66,7 @@ productops.uberinternal.com
 
 httpx:
 
-```
+```console
 $ packetengine subdomains uberinternal.com | httpx -silent -status-code -title -mc 200
 https://arize.uberinternal.com [200] [Arize AI]
 https://emea-vpn-lab.uberinternal.com [200] []
@@ -86,27 +86,27 @@ https://vpn-apac-any.uberinternal.com [200] []
 
 nuclei:
 
-```
-$ packetengine subdomains uberinternal.com | httpx -silent | nuclei
+```console
+packetengine subdomains uberinternal.com | httpx -silent | nuclei
 ```
 
 bbrf:
 
-```
-$ packetengine subdomains uberinternal.com | bbrf domain add -
+```console
+packetengine subdomains uberinternal.com | bbrf domain add -
 ```
 
 # Installation
 
 Using `go install`:
 
-```
+```console
 go install -v github.com/PacketEngine/packetengine/cmd/packetengine@latest
 ```
 
 Using Docker:
 
-```
+```console
 docker pull packetengine/packetengine:latest
 ```
 
