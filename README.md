@@ -22,6 +22,8 @@ The CLI application doesn't perform any scanning itself -- it gives you instant 
 Standalone:
 
 ```
+$ packetengine init your-api-key
+API key set!
 $ packetengine subdomains uberinternal.com
 devpod-us-or.uberinternal.com
 devpod-us.uberinternal.com
@@ -37,6 +39,29 @@ lzc-crane.uberinternal.com
 stash.uberinternal.com
 productops.uberinternal.com
 [...]
+```
+
+Docker:
+
+```
+$ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init your-api-key
+API key set!
+$ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine subdomains uberinternal.com
+devpod-us-or.uberinternal.com
+devpod-us.uberinternal.com
+crl.pki.uberinternal.com
+stack.uberinternal.com
+metal-api-preprod.uberinternal.com
+creativeproduction.uberinternal.com
+ussh.uberinternal.com
+team-dev.uberinternal.com
+flyte-poc.uberinternal.com
+upt-staging.uberinternal.com
+lzc-crane.uberinternal.com
+stash.uberinternal.com
+productops.uberinternal.com
+[...]
+
 ```
 
 httpx:
