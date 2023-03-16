@@ -9,7 +9,7 @@
 
 PacketEngine is a service which makes subdomain enumeration easy. It handles passive and active enumeration, wordlists, bruteforcing, alterations and permutations, wildcards, alerts, and much more. It's completely automated, leaving you to focus on research and hunting rather than setting up infrastructure and monitoring.
 
-To get started, you'll need a [PacketEngine account](https://packetengine.co.uk) and an API key.
+To get started, you'll need a [PacketEngine account](https://packetengine.co.uk) and an API key, and have at least one domain added.
 
 # Features
 
