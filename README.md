@@ -96,6 +96,13 @@ bbrf:
 packetengine subdomains uberinternal.com | bbrf domain add -
 ```
 
+# Docker Usage
+
+```console
+docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init $token
+docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine subdomains uberinternal.com
+```
+
 # Without Tags
 
 PacketEngine automatically tags subdomains if their DNS records point to private IP space or IPv6 IP addresses. If you want to exclude any tags you can use the `--without-tags` flag.
