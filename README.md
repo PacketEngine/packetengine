@@ -96,6 +96,14 @@ bbrf:
 packetengine subdomains uberinternal.com | bbrf domain add -
 ```
 
+# Without Tags
+
+PacketEngine automatically tags subdomains if their DNS records point to private IP space or IPv6 IP addresses. If you want to exclude any tags you can use the `--without-tags` flag.
+
+```console
+packetengine subdomains --without-tags=ipv6,private-ip uberinternal.com | httpx -silent -status-code -title -mc 200
+```
+
 # Installation
 
 Using `go install`:
