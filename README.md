@@ -9,7 +9,7 @@
 
 PacketEngine is a service which makes subdomain enumeration easy. It handles passive and active enumeration, wordlists, bruteforcing, alterations and permutations, wildcards, alerts, and much more. It's completely automated, leaving you to focus on research and hunting rather than setting up infrastructure and monitoring.
 
-To get started, you'll need a [PacketEngine account](https://packetengine.co.uk) and an API key, and have at least one domain added.
+To get started, you'll need a [PacketEngine account](https://packetengine.co.uk) and an API token, and have at least one domain added.
 
 # Features
 
@@ -22,7 +22,7 @@ The CLI application doesn't perform any scanning itself -- it gives you instant 
 Standalone:
 
 ```console
-$ packetengine init your-api-key
+$ packetengine init your-api-token
 API key set!
 $ packetengine subdomains uberinternal.com
 devpod-us-or.uberinternal.com
@@ -44,7 +44,7 @@ productops.uberinternal.com
 Docker:
 
 ```console
-$ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init your-api-key
+$ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init your-api-token
 API key set!
 $ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine subdomains uberinternal.com
 devpod-us-or.uberinternal.com
@@ -94,13 +94,6 @@ bbrf:
 
 ```console
 packetengine subdomains uberinternal.com | bbrf domain add -
-```
-
-# Docker Usage
-
-```console
-docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init $token
-docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine subdomains uberinternal.com
 ```
 
 # Without Tags
