@@ -104,6 +104,14 @@ PacketEngine automatically tags subdomains if their DNS records point to private
 packetengine subdomains --without-tags=ipv6,private-ip uberinternal.com | httpx -silent -status-code -title -mc 200
 ```
 
+# All Subdomains
+
+PacketEngine scans for new DNS records every day. By default we don't return subdomains where we haven't seen any DNS records for 3 days. If you want to include subdomains we only have historical DNS records for, use the `--all` flag.
+
+```console
+packetengine subdomains --all uberinternal.com
+```
+
 # Installation
 
 Using `go install`:
