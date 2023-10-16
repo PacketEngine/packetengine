@@ -15,6 +15,7 @@ var colorInfo *color.Color
 var packetengineClient *packetengine.PacketEngineClient
 
 var withoutTags string
+var allSubdomains bool
 
 func main() {
 	colorError = color.New(color.FgWhite).Add(color.BgRed)
@@ -45,6 +46,11 @@ func main() {
 						Name:        "without-tags",
 						Usage:       "Without tags",
 						Destination: &withoutTags,
+					},
+					&cli.BoolFlag{
+						Name:        "all",
+						Usage:       "If set to true, include subdomains which don't have any current DNS records",
+						Destination: &allSubdomains,
 					},
 				},
 			},
@@ -92,7 +98,7 @@ func SubdomainsAction(c *cli.Context) error {
 
 	domain := c.Args().First()
 
-	subdomains, err := packetengineClient.GetSubdomains(domain, withoutTags)
+	subdomains, err := packetengineClient.GetSubdomains(domain, withoutTags, allSubdomains)
 	if err != nil {
 		return err
 	}

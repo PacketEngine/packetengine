@@ -3,8 +3,9 @@ package packetengine
 import (
 	"encoding/json"
 	"errors"
-	"github.com/go-resty/resty/v2"
 	"os"
+
+	"github.com/go-resty/resty/v2"
 )
 
 type PacketEngineClient struct {
@@ -43,7 +44,7 @@ func NewPacketEngineClient(apiKey string) (*PacketEngineClient, error) {
 	return &PacketEngineClient{apiKey: apiKey, client: client}, nil
 }
 
-func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string) ([]string, error) {
+func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string, allSubdomains bool) ([]string, error) {
 	if len(domain) == 0 {
 		return nil, errors.New("A domain is required.")
 	}
@@ -53,6 +54,12 @@ func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string) ([
 	if len(withoutTags) > 0 {
 		clientResp.SetQueryParams(map[string]string{
 			"withoutTags": withoutTags,
+		})
+	}
+
+	if allSubdomains == true {
+		clientResp.SetQueryParams(map[string]string{
+			"all": "true",
 		})
 	}
 
