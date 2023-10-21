@@ -31,8 +31,8 @@ func main() {
 				HelpName:    "init",
 				Action:      InitAction,
 				ArgsUsage:   ` `,
-				Usage:       `Sets the application API key.`,
-				Description: `Set the API key.`,
+				Usage:       `Sets the application API token.`,
+				Description: `Set the API token.`,
 			},
 			{
 				Name:        "subdomains",
@@ -64,17 +64,17 @@ func main() {
 
 func InitAction(c *cli.Context) error {
 	if c.Args().Len() < 1 {
-		return errors.New("An API key is required.")
+		return errors.New("An API token is required.")
 	}
 
-	key := c.Args().First()
+	token := c.Args().First()
 
-	err := SetAPIKey(key)
+	err := SetAPIToken(token)
 	if err != nil {
 		return err
 	}
 
-	colorInfo.Println("API key set!")
+	colorInfo.Println("API token set!")
 	return nil
 }
 
@@ -84,13 +84,13 @@ func SubdomainsAction(c *cli.Context) error {
 	}
 
 	// Boot
-	apiKey, err := GetAPIKey()
+	apiToken, err := GetAPIToken()
 
 	if err != nil {
 		return err
 	}
 
-	packetengineClient, err = packetengine.NewPacketEngineClient(apiKey)
+	packetengineClient, err = packetengine.NewPacketEngineClient(apiToken)
 
 	if err != nil {
 		return err
@@ -110,9 +110,9 @@ func SubdomainsAction(c *cli.Context) error {
 	return nil
 }
 
-func SetAPIKey(apiKey string) error {
-	if len(apiKey) == 0 {
-		return errors.New("An API key is required.")
+func SetAPIToken(apiToken string) error {
+	if len(apiToken) == 0 {
+		return errors.New("An API token is required.")
 	}
 
 	home, err := os.UserHomeDir()
@@ -121,14 +121,14 @@ func SetAPIKey(apiKey string) error {
 		return err
 	}
 
-	keyBytes := []byte(apiKey)
+	tokenBytes := []byte(apiToken)
 	err = os.MkdirAll(home+"/.config/packetengine/", os.ModePerm)
 
 	if err != nil {
 		return err
 	}
 
-	err = os.WriteFile(home+"/.config/packetengine/api_key", keyBytes, 0644)
+	err = os.WriteFile(home+"/.config/packetengine/api_key", tokenBytes, 0644)
 
 	if err != nil {
 		return err
@@ -137,18 +137,18 @@ func SetAPIKey(apiKey string) error {
 	return nil
 }
 
-func GetAPIKey() (string, error) {
+func GetAPIToken() (string, error) {
 	home, err := os.UserHomeDir()
 
 	if err != nil {
 		return "", err
 	}
 
-	apiKey, err := os.ReadFile(home + "/.config/packetengine/api_key")
+	apiToken, err := os.ReadFile(home + "/.config/packetengine/api_key")
 
 	if err != nil {
 		return "", err
 	}
 
-	return string(apiKey), nil
+	return string(apiToken), nil
 }

@@ -23,7 +23,7 @@ Standalone:
 
 ```console
 $ packetengine init your-api-token
-API key set!
+API token set!
 $ packetengine subdomains uberinternal.com
 devpod-us-or.uberinternal.com
 devpod-us.uberinternal.com
@@ -45,7 +45,7 @@ Docker:
 
 ```console
 $ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine init your-api-token
-API key set!
+API token set!
 $ docker run -v packetengine-config:/home/packetengine/.config/packetengine packetengine/packetengine subdomains uberinternal.com
 devpod-us-or.uberinternal.com
 devpod-us.uberinternal.com

@@ -9,15 +9,15 @@ import (
 )
 
 type PacketEngineClient struct {
-	apiKey string
-	client *resty.Client
+	apiToken string
+	client   *resty.Client
 }
 
 var apiURL = "https://api.packetengine.co.uk"
 
-func NewPacketEngineClient(apiKey string) (*PacketEngineClient, error) {
-	if len(apiKey) == 0 {
-		return nil, errors.New("API key is required.")
+func NewPacketEngineClient(apiToken string) (*PacketEngineClient, error) {
+	if len(apiToken) == 0 {
+		return nil, errors.New("API token is required.")
 	}
 
 	apiURLEnv := os.Getenv("PACKETENGINE_API_URL")
@@ -30,18 +30,18 @@ func NewPacketEngineClient(apiKey string) (*PacketEngineClient, error) {
 
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
-		SetAuthToken(string(apiKey)).
+		SetAuthToken(string(apiToken)).
 		Get(apiURL + "/v1/verify")
 
 	if resp.StatusCode() == 401 {
-		return nil, errors.New("The provided API key is invalid.")
+		return nil, errors.New("The provided API token is invalid.")
 	}
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &PacketEngineClient{apiKey: apiKey, client: client}, nil
+	return &PacketEngineClient{apiToken: apiToken, client: client}, nil
 }
 
 func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string, allSubdomains bool) ([]string, error) {
@@ -57,7 +57,7 @@ func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string, al
 		})
 	}
 
-	if allSubdomains == true {
+	if allSubdomains {
 		clientResp.SetQueryParams(map[string]string{
 			"all": "true",
 		})
@@ -65,11 +65,11 @@ func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string, al
 
 	resp, err := clientResp.
 		SetHeader("Accept", "application/json").
-		SetAuthToken(string(c.apiKey)).
+		SetAuthToken(string(c.apiToken)).
 		Get(apiURL + "/v1/domains/" + domain + "/subdomains")
 
 	if resp.StatusCode() == 401 {
-		return nil, errors.New("The API key is invalid.")
+		return nil, errors.New("The API token is invalid.")
 	}
 
 	if err != nil {
