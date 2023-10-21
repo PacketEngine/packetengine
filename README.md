@@ -17,6 +17,32 @@ Currently, the PacketEngine API provides read-only endpoints. The main goal of t
 
 The CLI application doesn't perform any scanning itself -- it gives you instant subdomains. The PacketEngine service performs the scans automatically throughout the day.
 
+
+# Installation
+
+Using `go install`:
+
+```console
+go install -v github.com/PacketEngine/packetengine/cmd/packetengine@latest
+```
+
+Using Docker:
+
+```console
+docker pull packetengine/packetengine:latest
+```
+
+Using Snap:
+
+TODO
+
+Using Brew:
+
+```console
+brew tap PacketEngine/packetengine
+brew install packetengine
+```
+
 # Usage
 
 Standalone:
@@ -104,29 +130,12 @@ PacketEngine automatically tags subdomains if their DNS records point to private
 packetengine subdomains --without-tags=ipv6,private-ip uberinternal.com | httpx -silent -status-code -title -mc 200
 ```
 
-# Installation
+# All Subdomains
 
-Using `go install`:
-
-```console
-go install -v github.com/PacketEngine/packetengine/cmd/packetengine@latest
-```
-
-Using Docker:
+PacketEngine scans for new DNS records every day. By default we don't return subdomains where we haven't seen any DNS records for 3 days. If you want to include subdomains we only have historical DNS records for, use the `--all` flag.
 
 ```console
-docker pull packetengine/packetengine:latest
-```
-
-Using Snap:
-
-TODO
-
-Using Brew:
-
-```console
-brew tap PacketEngine/packetengine
-brew install packetengine
+packetengine subdomains --all uberinternal.com
 ```
 
 # License
