@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/fatih/color v1.15.0
-	github.com/go-resty/resty/v2 v2.10.0
+	github.com/go-resty/resty/v2 v2.11.0
 	github.com/urfave/cli/v2 v2.25.7
 )
 
