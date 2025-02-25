@@ -146,6 +146,12 @@ It's useful to have the IP addresses of subdomains, and we made it easy to do ju
 packetengine ips uberinternal.com
 ```
 
+You can of course also use ``--without-tags` here also.
+
+```console
+packetengine ips --without-tags=private-ip uberinternal.com
+```
+
 # License
 
 The PacketEngine CLI is available under the MIT license. See the LICENSE file for more info.
