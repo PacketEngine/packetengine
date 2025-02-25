@@ -138,6 +138,14 @@ PacketEngine scans for new DNS records every day. By default we don't return sub
 packetengine subdomains --all uberinternal.com
 ```
 
+# All IPs
+
+It's useful to have the IP addresses of subdomains, and we made it easy to do just that.
+
+```console
+packetengine ips uberinternal.com
+```
+
 # License
 
 The PacketEngine CLI is available under the MIT license. See the LICENSE file for more info.
