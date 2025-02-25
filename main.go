@@ -100,3 +100,54 @@ func (c *PacketEngineClient) GetSubdomains(domain string, withoutTags string, al
 
 	return subdomains, nil
 }
+
+func (c *PacketEngineClient) GetIPs(domain string, withoutTags string) ([]string, error) {
+	if len(domain) == 0 {
+		return nil, errors.New("A domain is required.")
+	}
+
+	clientResp := c.client.R()
+
+	if len(withoutTags) > 0 {
+		clientResp.SetQueryParams(map[string]string{
+			"withoutTags": withoutTags,
+		})
+	}
+
+	resp, err := clientResp.
+		SetHeader("Accept", "application/json").
+		SetAuthToken(string(c.apiToken)).
+		Get(apiURL + "/v1/domains/" + domain + "/ips")
+
+	if resp.StatusCode() == 401 {
+		return nil, errors.New("The API token is invalid.")
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Parse the response body into a map[string]interface{}
+	var result map[string]interface{}
+
+	err = json.Unmarshal(resp.Body(), &result)
+
+	// Check for any errors
+	if err != nil {
+		return nil, err
+	}
+
+	if errorMessage, hasError := result["error"]; hasError {
+		return nil, errors.New(errorMessage.(string))
+	}
+
+	var ips []string
+
+	if ipsInterface, ok := result["ips"]; ok {
+		for _, ip := range ipsInterface.([]interface{}) {
+			ips = append(ips, ip.(string))
+		}
+	}
+
+	return ips, nil
+}

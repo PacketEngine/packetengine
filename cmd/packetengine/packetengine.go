@@ -54,6 +54,21 @@ func main() {
 					},
 				},
 			},
+			{
+				Name:        "ips",
+				HelpName:    "ips",
+				Action:      IPsAction,
+				ArgsUsage:   ` `,
+				Usage:       `Fetches all IP addresses from a domain's DNS records`,
+				Description: `Fetches all IP addresses from a domain's DNS records`,
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:        "without-tags",
+						Usage:       "Without tags",
+						Destination: &withoutTags,
+					},
+				},
+			},
 		},
 	}
 
@@ -105,6 +120,38 @@ func SubdomainsAction(c *cli.Context) error {
 
 	for _, subdomain := range subdomains {
 		colorInfo.Println(subdomain)
+	}
+
+	return nil
+}
+
+func IPsAction(c *cli.Context) error {
+	if c.Args().Len() < 1 {
+		return errors.New("A domain is required.")
+	}
+
+	// Boot
+	apiToken, err := GetAPIToken()
+
+	if err != nil {
+		return err
+	}
+
+	packetengineClient, err = packetengine.NewPacketEngineClient(apiToken)
+
+	if err != nil {
+		return err
+	}
+
+	domain := c.Args().First()
+
+	ips, err := packetengineClient.GetIPs(domain, withoutTags)
+	if err != nil {
+		return err
+	}
+
+	for _, ip := range ips {
+		colorInfo.Println(ip)
 	}
 
 	return nil
